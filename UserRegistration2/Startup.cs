@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using ServiceRequestManagment.Models;
 using UserRegistration1.Services;
 using UserRegistration1.Services.Implementations;
 using UserRegistration2.Helpers;
@@ -40,20 +41,30 @@ namespace UserRegistration2
             // services.AddDbContext<SRMContext>(option => option.UseSqlServer(Configuration["ConnectionStrings:connectionString"]));
             services.AddDbContext<Models.SRMContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            
+            
             services.AddScoped<IEmployeeService,EmployeeService>();
             services.AddTransient<IMailService, MailService>();
             services.AddScoped<ICategoryRepo, SqlCategoryRepo>();
             services.AddScoped<IDepartmentRepo, SqlDepartmentRepo>();
             services.AddScoped<IRequestRepo, SqlRequestRepo>();
             services.AddScoped<IStatusRepo, SqlStatusRepo>();
+
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddTransient<IRequestService, RequestService>();
+
+
             services.AddMvc(option => option.EnableEndpointRouting = false)
                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+            // emial Configration
+            var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
 
-             // configure jwt authentication
+            // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
@@ -110,7 +121,9 @@ namespace UserRegistration2
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
         }
     }

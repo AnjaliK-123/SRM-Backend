@@ -12,7 +12,15 @@ namespace UserRegistration2.Services
         IEnumerable<Employee> GetAll();
         Employee GetById(int id);
         Employee Create(Employee user, string password);
-       // void Update(Employee user, string password = null);
-       // void Delete(int id);
+        //
+
+        List<Employee> GetAllEmployees();
+        Employee GetEmployeeDetail(int Id);
+        List<Employee> GetEmployeeByDept(int DeptId);
+
+
+
+        // void Update(Employee user, string password = null);
+        // void Delete(int id);
     }
 }

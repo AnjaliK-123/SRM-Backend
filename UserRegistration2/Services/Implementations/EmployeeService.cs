@@ -149,6 +149,26 @@ namespace UserRegistration2.Services.Implementations
 
         //    return true;
         //}
+
+
+
+        public List<Employee> GetAllEmployees()
+        {
+            
+            return _context.Employees.ToList();
+        }
+
+        public List<Employee> GetEmployeeByDept(int DeptId)
+        {
+           
+            return _context.Employees.Where(e => e.DepartmentId == DeptId).ToList();
+        }
+
+        public Employee GetEmployeeDetail(int Id)
+        {
+             return _context.Employees.FirstOrDefault(n => n.Id == Id);
+        }
+
     }
 }
 
