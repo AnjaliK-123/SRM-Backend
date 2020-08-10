@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using ServiceRequestManagment.Models;
+using Microsoft.VisualBasic;
 
 namespace UserRegistration2.Services.Implementations
 {
@@ -54,7 +55,10 @@ namespace UserRegistration2.Services.Implementations
             }
 
 
-         
+            try
+            {
+
+
 
                 string CreatedEmpEmail = context.Employees.FirstOrDefault(e => e.Id == serviceRequest.CreatedEmpId).EmailId;
                 string AssignedEmpEmail = context.Employees.FirstOrDefault(e => e.Id == serviceRequest.AssignedEmpId).EmailId;
@@ -66,7 +70,7 @@ namespace UserRegistration2.Services.Implementations
                 string content = "Request Id: " + serviceRequest.Id +
                                  "\nRequest Title: " + serviceRequest.Title +
                                  "\nSummary: " + serviceRequest.Summary +
-                                 "\nComments: " + context.Comments.OrderByDescending(e=> e.Id ).FirstOrDefault(e=> e.RequestId==serviceRequest.Id).Comment1 +
+                                 "\nComments: " + context.Comments.OrderByDescending(e => e.Id).FirstOrDefault(e => e.RequestId == serviceRequest.Id).Comment1 +
                                  "\nRequest Created by: " + context.Employees.FirstOrDefault(e => e.Id == serviceRequest.CreatedEmpId).FirstName +
                                  "\nRequest Assigned to: " + context.Employees.FirstOrDefault(e => e.Id == serviceRequest.AssignedEmpId).FirstName;
 
@@ -81,7 +85,11 @@ namespace UserRegistration2.Services.Implementations
                 }
                 var message = new Message(new string[] { CreatedEmpEmail, AssignedEmpEmail, AdminEmail }, sub, content);
                 emailSender.SendEmail(message);
-                //
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.ToString());
+            }//
   
         }
     }
