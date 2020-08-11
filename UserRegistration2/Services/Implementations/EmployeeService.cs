@@ -160,8 +160,10 @@ namespace UserRegistration2.Services.Implementations
 
         public List<Employee> GetEmployeeByDept(int DeptId)
         {
-           
-            return _context.Employees.Where(e => e.DepartmentId == DeptId).ToList();
+            string role = "Resource";
+            int ResouceRole = _context.Roles.FirstOrDefault( r=> r.Role1.Equals(role)).Id;
+            var emp= _context.Employees.Where(e => e.DepartmentId == DeptId).ToList();
+            return emp.Where(e => e.RoleId == ResouceRole).ToList();
         }
 
         public Employee GetEmployeeDetail(int Id)
