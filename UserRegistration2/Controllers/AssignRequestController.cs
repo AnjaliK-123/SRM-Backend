@@ -21,13 +21,14 @@ namespace UserRegistration2.Controllers
         {
             _service = service;
         }
-        // api/assignrequest/getallrequests
+        // api/assignrequest/getallrequests/Finance
+        // here id is department in string
 
-
-        [HttpGet("[action]")]
-        public IActionResult GetAllRequests()
+        [HttpGet("GetAllRequests/{id}")]
+        public IActionResult GetAllRequests(string id)
         {
-            var allRequest = _service.GetAllRequests();
+
+            var allRequest = _service.GetAllRequests(id);
             List<AngularRequestModel> objList = new List<AngularRequestModel>();
 
 

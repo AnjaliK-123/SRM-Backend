@@ -157,7 +157,7 @@ namespace UserRegistration2.Services.Implementations
             
             return _context.Employees.ToList();
         }
-
+        // sorted as per resource role
         public List<Employee> GetEmployeeByDept(int DeptId)
         {
             string role = "Resource";

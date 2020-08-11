@@ -19,10 +19,11 @@ namespace UserRegistration2.Services.Implementations
         {
             this.emailSender = emailSender;
         }
-        public List<Request> GetAllRequests()
+        public List<Request> GetAllRequests(string dept)
         {
             var context = new SRMContext();
-            return context.Request.ToList();
+            int deptId = context.Department.FirstOrDefault(d => d.Name.Equals(dept)).Id;
+            return context.Request.Where(r=> r.DepartmentId == deptId).ToList();
         }    
 
         public Request GetRequestDetail(int Id)
