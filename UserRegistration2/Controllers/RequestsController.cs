@@ -37,11 +37,31 @@ namespace UserRegistration2.Controllers
 
         // GET: api/Requests
         [HttpGet]
-        public ActionResult<IEnumerable<Request>> GetRequest()
+      /*  public ActionResult<IEnumerable<Request>> GetRequest()
         {
           
             var requestItems = _repository.GetRequest();
             return Ok(requestItems);
+        }*/
+        
+        
+        [HttpGet]
+        public ActionResult GetRequests()
+        {
+            var allRequest = _repository.GetRequests();
+            List<RequestModel> objList = new List<RequestModel>();
+
+
+            foreach (var request in allRequest)
+            {
+
+                RequestModel obj = new RequestModel();
+                obj.CopyData(request);
+
+                objList.Add(obj);
+
+            }
+            return Ok(objList);
         }
 
         // GET: api/Requests/5
@@ -77,12 +97,6 @@ namespace UserRegistration2.Controllers
                 _repository.SaveChanges();
                 return NoContent();
             }*/
-
-
-
-        // POST: api/Requests
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
 
 
         // POST: api/Requests
