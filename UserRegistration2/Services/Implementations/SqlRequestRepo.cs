@@ -30,7 +30,7 @@ namespace UserRegistration2.Services.Implementations
               _context.Request.Add(request);
             
                _context.Request.Add(request);
-            var email1 = context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).EmailId;
+            var email1 = _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).EmailId;
          //   var AdminEmail = context.Employees.FirstOrDefault(e =>  e.RoleId == (context.Roles.FirstOrDefault(r => r.Role1.Equals("Admin")).Id)).EmailId;
             var fromAddress = new MailAddress("anjalikhadake888@gmail.com", "My Name");
             var toAddress = new MailAddress((email1).ToString());
@@ -38,10 +38,10 @@ namespace UserRegistration2.Services.Implementations
             const string subject = "Service Request";
             string body = "Request Created!" +
                             "\nRequest Id: " + request.Id +
-                                "\nRequest Created by: " + context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).FirstName +
-                                "\nDepartment: " + context.Department.FirstOrDefault(d => d.Id == request.DepartmentId).Name +
-                                 "\nCategory: " + context.Category.FirstOrDefault(c => c.Id == request.CategoryId).Name +
-                                  "\nSubcategory: " + context.Category.FirstOrDefault(s => s.Id == request.SubCategoryId).Name +
+                                "\nRequest Created by: " + _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).FirstName +
+                                "\nDepartment: " + _context.Department.FirstOrDefault(d => d.Id == request.DepartmentId).Name +
+                                 "\nCategory: " + _context.Category.FirstOrDefault(c => c.Id == request.CategoryId).Name +
+                                  "\nSubcategory: " + _context.Category.FirstOrDefault(s => s.Id == request.SubCategoryId).Name +
                                   "\nTitle :" + request.Title +
                                   "\nSummary :" + request.Summary;
 
