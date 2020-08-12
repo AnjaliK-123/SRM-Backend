@@ -81,7 +81,7 @@ namespace UserRegistration2.Services.Implementations
            
         }
 
-        public IEnumerable<Request> GetRequest()
+      /*  public IEnumerable<Request> GetRequest()
         {
             return _context.Request
                 .Include(stat => stat.Status)
@@ -89,6 +89,12 @@ namespace UserRegistration2.Services.Implementations
                 .Include(cat => cat.Category)
                 .Include(cat => cat.SubCategory)
                 .ToList();
+        }*/
+         public List<Request> GetRequests()
+        {
+           
+        var _context = new SRMContext();
+        return _context.Request.ToList();
         }
 
         public Request GetRequestById(int Id)
