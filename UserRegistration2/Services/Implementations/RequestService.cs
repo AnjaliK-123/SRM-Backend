@@ -19,18 +19,16 @@ namespace UserRegistration2.Services.Implementations
         {
             this.emailSender = emailSender;
         }
-        public List<Request> GetAllRequests(string dept)
+        public List<Request> GetAllRequests(int DeptId)
         {
             var context = new SRMContext();
-            int deptId = context.Department.FirstOrDefault(d => d.Name.Equals(dept)).Id;
-            return context.Request.Where(r=> r.DepartmentId == deptId).ToList();
+            return context.Request.Where(r=> r.DepartmentId == DeptId).ToList();
         }    
 
         public Request GetRequestDetail(int Id)
         {
             var context = new SRMContext();
            Request request= context.Request.FirstOrDefault(n => n.Id == Id );
-          //  request.Category = context.Category.FirstOrDefault(n => n.Id == request.CategoryId);
             return request;
         }
 

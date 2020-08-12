@@ -9,7 +9,7 @@ namespace UserRegistration2.Services
 {
     public interface IRequestService
     {
-        List<Request> GetAllRequests( string Dept);
+        List<Request> GetAllRequests( int DeptId);
         Request GetRequestDetail(int StausId);
         public void UpdateRequest(int serviceRequestId, Request serviceRequest);
     }

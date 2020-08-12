@@ -22,10 +22,10 @@ namespace UserRegistration2.Controllers
             _service = service;
         }
         // api/assignrequest/getallrequests/Finance
-        // here id is department in string
+        // here id is department in id
 
         [HttpGet("GetAllRequests/{id}")]
-        public IActionResult GetAllRequests(string id)
+        public IActionResult GetAllRequests(int id)
         {
 
             var allRequest = _service.GetAllRequests(id);
