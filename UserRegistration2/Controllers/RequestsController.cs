@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using UserRegistration2.Models;
 using UserRegistration2.Services;
 using System.Data.SqlClient;
+using UserRegistration2.RequestFormatter;
 using ServiceRequestManagement.RequestFormatter;
 //using MimeKit;
 
