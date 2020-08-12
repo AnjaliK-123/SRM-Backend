@@ -9,8 +9,9 @@ namespace UserRegistration2.Services
    public interface IRequestRepo
     {
         bool SaveChanges();
-        IEnumerable<Request> GetRequest();
+      //  IEnumerable<Request> GetRequest();
         Request GetRequestById(int Id);
+       List<Request> GetRequests();
 
         void CreateRequest(Request request);
 
