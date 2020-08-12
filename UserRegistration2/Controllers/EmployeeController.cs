@@ -22,7 +22,7 @@ namespace UserRegistration2.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class EmployeeController : ControllerBase
     {
         private  IEmployeeService _employeeService;
