@@ -107,35 +107,6 @@ namespace UserRegistration2.Controllers
         {
             _repository.CreateRequest(createRequest);
             _repository.SaveChanges();
-
-
-            //var email = createRequest.CreatedEmp.EmailId;
-            var fromAddress = new MailAddress("fromAddress", "My Name");
-            var toAddress = new MailAddress("toAddress", "Mr Test");
-            const string fromPassword = "password";
-            const string subject = "Request";
-            const string body = "Request Created!";
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                Timeout = 20000
-            };
-
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-
-                smtp.Send(message);
-            }
             return createRequest;
         }
 
