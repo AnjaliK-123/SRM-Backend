@@ -74,7 +74,7 @@ namespace UserRegistration2.Controllers
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name,user.EmailId),
+                    //new Claim(ClaimTypes.Name,user.EmailId),
                     new Claim(ClaimTypes.Name,user.FirstName),
                     new Claim(ClaimTypes.Name,user.RoleId.ToString()),
                     new Claim(ClaimTypes.Name,user.DepartmentId.ToString())
