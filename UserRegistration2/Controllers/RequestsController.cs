@@ -113,18 +113,18 @@ namespace UserRegistration2.Controllers
             return createRequest;
         }
 
-         DELETE: api/Requests/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Requests/5
+       [HttpDelete("{id}")]
         public ActionResult<Request> DeleteRequest(int Id)
         {
-
+            SRMContext context = new SRMContext();
             var requestFromRepo = _repository.GetRequestById(Id);
             if (requestFromRepo == null)
             {
                 return NotFound();
             }
             _repository.DeleteRequest(requestFromRepo);
-            _repository.SaveChanges();
+            context.SaveChanges();
             return NoContent();
 
         }
