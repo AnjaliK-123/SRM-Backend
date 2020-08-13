@@ -31,7 +31,7 @@ namespace UserRegistration2.Services.Implementations
             
               
             var email1 = _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).EmailId;
-         //   var AdminEmail = context.Employees.FirstOrDefault(e => e.DepartmentId == serviceRequest.DepartmentId &&  e.RoleId == (context.Roles.FirstOrDefault(r => r.Role1.Equals("Admin")).Id)).EmailId;
+         //   var AdminEmail = _context.Employees.FirstOrDefault(e => e.DepartmentId == request.DepartmentId &&  e.RoleId == (_context.Roles.FirstOrDefault(r => r.Role1.Equals("Admin")).Id)).EmailId;
             var fromAddress = new MailAddress("anjalikhadake888@gmail.com", "My Name");
             var toAddress = new MailAddress((email1).ToString());
             const string fromPassword = "password";
