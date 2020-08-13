@@ -75,7 +75,10 @@ namespace UserRegistration2.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Name,user.EmailId),
-                    new Claim(ClaimTypes.Name,user.FirstName)
+                    new Claim(ClaimTypes.Name,user.FirstName),
+                    new Claim(ClaimTypes.Name,user.RoleId.ToString()),
+                    new Claim(ClaimTypes.Name,user.DepartmentId.ToString())
+                    
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
