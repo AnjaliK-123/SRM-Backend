@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,8 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using UserRegistration2.Models;
 using UserRegistration2.Services;
 using System.Data.SqlClient;
-using UserRegistration2.RequestFormatter;
 using ServiceRequestManagement.RequestFormatter;
+using UserRegistration2.RequestFormatter;
+using UserRegistration2.Services.Implementations;
 //using MimeKit;
 
 namespace UserRegistration2.Controllers
@@ -28,7 +29,7 @@ namespace UserRegistration2.Controllers
         private readonly object requestItems;
         private readonly IMapper _mapper;
         private readonly IRequestService _service;
-
+        
         public RequestsController(IRequestRepo repository, IMapper mapper, IRequestService service)
         {
             _repository = repository;
@@ -37,7 +38,7 @@ namespace UserRegistration2.Controllers
         }
 
         // GET: api/Requests
-        [HttpGet]
+    //    [HttpGet]
       /*  public ActionResult<IEnumerable<Request>> GetRequest()
         {
           
@@ -106,12 +107,13 @@ namespace UserRegistration2.Controllers
         [HttpPost]
         public ActionResult<Request> CreateRequest(Request createRequest)
         {
+            SRMContext context = new SRMContext();
             _repository.CreateRequest(createRequest);
-            _repository.SaveChanges();
+            context.SaveChanges();
             return createRequest;
         }
 
-        // DELETE: api/Requests/5
+         DELETE: api/Requests/5
         [HttpDelete("{id}")]
         public ActionResult<Request> DeleteRequest(int Id)
         {
@@ -130,3 +132,4 @@ namespace UserRegistration2.Controllers
 
     }
 }
+

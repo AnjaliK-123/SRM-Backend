@@ -8,7 +8,7 @@ namespace UserRegistration2.Services
 {
    public interface IRequestRepo
     {
-        bool SaveChanges();
+        //bool SaveChanges();
       //  IEnumerable<Request> GetRequest();
         Request GetRequestById(int Id);
        List<Request> GetRequests();
