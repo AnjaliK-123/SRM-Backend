@@ -54,10 +54,10 @@ namespace ServiceRequestManagement.Controllers
         // api/assignemployee/employeebydept/1
 
         [HttpGet("[action]/{id}")]
-        public IActionResult EmployeeByDept([FromRoute]int id)
+        public IActionResult EmployeeByDept(int id)
         {
             var context = new SRMContext();
-           // int deptId = context.Department.FirstOrDefault(s => s.Name.Equals(id)).Id;
+            //int deptId = context.Department.FirstOrDefault(s => s.Name.Equals(id)).Id;
             var allEmployees = _service.GetEmployeeByDept(id);
 
             List<AngularEmployeeModel> objList = new List<AngularEmployeeModel>();
