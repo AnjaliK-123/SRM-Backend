@@ -51,14 +51,14 @@ namespace ServiceRequestManagement.Controllers
             return Ok(obj);
         }
 
-        // api/assignemployee/employeebydept/IT
+        // api/assignemployee/employeebydept/1
 
         [HttpGet("[action]/{id}")]
-        public IActionResult EmployeeByDept([FromRoute]string id)
+        public IActionResult EmployeeByDept([FromRoute]int id)
         {
             var context = new SRMContext();
-            int deptId = context.Department.FirstOrDefault(s => s.Name.Equals(id)).Id;
-            var allEmployees = _service.GetEmployeeByDept(deptId);
+           // int deptId = context.Department.FirstOrDefault(s => s.Name.Equals(id)).Id;
+            var allEmployees = _service.GetEmployeeByDept(id);
 
             List<AngularEmployeeModel> objList = new List<AngularEmployeeModel>();
             foreach (var employee in allEmployees)
