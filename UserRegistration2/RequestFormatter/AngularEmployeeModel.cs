@@ -23,6 +23,11 @@ namespace ServiceRequestManagement.RequestFormatter
 
 
             this.Id = employee.Id;
+            if (employee.DepartmentId == null)
+            {
+                this.Department = "NotAssigned";
+            }
+            else
             this.Department = context.Department.FirstOrDefault(e=> e.Id==employee.DepartmentId).Name;
             this.FirstName = employee.FirstName;
             this.MiddleName = employee.MiddleName;
