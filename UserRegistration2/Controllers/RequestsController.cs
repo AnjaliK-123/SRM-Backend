@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using UserRegistration2.Models;
 using UserRegistration2.Services;
 using System.Data.SqlClient;
+using UserRegistration2.RequestFormatter;
 using ServiceRequestManagement.RequestFormatter;
 //using MimeKit;
 
@@ -37,11 +38,31 @@ namespace UserRegistration2.Controllers
 
         // GET: api/Requests
         [HttpGet]
-        public ActionResult<IEnumerable<Request>> GetRequest()
+      /*  public ActionResult<IEnumerable<Request>> GetRequest()
         {
           
             var requestItems = _repository.GetRequest();
             return Ok(requestItems);
+        }*/
+        
+        
+        [HttpGet]
+        public ActionResult GetRequests()
+        {
+            var allRequest = _repository.GetRequests();
+            List<RequestModel> objList = new List<RequestModel>();
+
+
+            foreach (var request in allRequest)
+            {
+
+                RequestModel obj = new RequestModel();
+                obj.CopyData(request);
+
+                objList.Add(obj);
+
+            }
+            return Ok(objList);
         }
 
         // GET: api/Requests/5
@@ -79,12 +100,6 @@ namespace UserRegistration2.Controllers
             }*/
 
 
-
-        // POST: api/Requests
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-
-
         // POST: api/Requests
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -93,35 +108,6 @@ namespace UserRegistration2.Controllers
         {
             _repository.CreateRequest(createRequest);
             _repository.SaveChanges();
-
-
-            //var email = createRequest.CreatedEmp.EmailId;
-            var fromAddress = new MailAddress("fromAddress", "My Name");
-            var toAddress = new MailAddress("toAddress", "Mr Test");
-            const string fromPassword = "password";
-            const string subject = "Request";
-            const string body = "Request Created!";
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                Timeout = 20000
-            };
-
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-
-                smtp.Send(message);
-            }
             return createRequest;
         }
 

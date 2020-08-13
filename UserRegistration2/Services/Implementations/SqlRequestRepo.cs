@@ -29,7 +29,46 @@ namespace UserRegistration2.Services.Implementations
             }
               _context.Request.Add(request);
             
-          
+              
+            var email1 = _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).EmailId;
+         //   var AdminEmail = _context.Employees.FirstOrDefault(e => e.DepartmentId == request.DepartmentId &&  e.RoleId == (_context.Roles.FirstOrDefault(r => r.Role1.Equals("Admin")).Id)).EmailId;
+            var fromAddress = new MailAddress("anjalikhadake888@gmail.com", "My Name");
+            var toAddress = new MailAddress((email1).ToString());
+            const string fromPassword = "password";
+            const string subject = "Service Request";
+            string body = "Request Created!" +
+                            "\nRequest Id: " + request.Id +
+                                "\nRequest Created by: " + _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).FirstName +
+                                "\nDepartment: " + _context.Department.FirstOrDefault(d => d.Id == request.DepartmentId).Name +
+                                 "\nCategory: " + _context.Category.FirstOrDefault(c => c.Id == request.CategoryId).Name +
+                                  "\nSubcategory: " + _context.Category.FirstOrDefault(s => s.Id == request.SubCategoryId).Name +
+                                  "\nTitle :" + request.Title +
+                                  "\nSummary :" + request.Summary;
+
+           
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                Timeout = 20000
+
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+
+                smtp.Send(message);
+            }
+
         }
 
         public void DeleteRequest(Request request)
@@ -42,7 +81,7 @@ namespace UserRegistration2.Services.Implementations
            
         }
 
-        public IEnumerable<Request> GetRequest()
+      /*  public IEnumerable<Request> GetRequest()
         {
             return _context.Request
                 .Include(stat => stat.Status)
@@ -50,6 +89,12 @@ namespace UserRegistration2.Services.Implementations
                 .Include(cat => cat.Category)
                 .Include(cat => cat.SubCategory)
                 .ToList();
+        }*/
+         public List<Request> GetRequests()
+        {
+           
+        var _context = new SRMContext();
+        return _context.Request.ToList();
         }
 
         public Request GetRequestById(int Id)
