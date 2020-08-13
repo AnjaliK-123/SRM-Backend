@@ -30,12 +30,14 @@ namespace UserRegistration2.Services.Implementations
               _context.Request.Add(request);
             
               
+          
             var email1 = _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).EmailId;
-         //   var AdminEmail = _context.Employees.FirstOrDefault(e => e.DepartmentId == request.DepartmentId &&  e.RoleId == (_context.Roles.FirstOrDefault(r => r.Role1.Equals("Admin")).Id)).EmailId;
+           var AdminEmail = _context.Employees.FirstOrDefault(e => e.DepartmentId == request.DepartmentId && e.RoleId == (_context.Roles.FirstOrDefault(r => r.Role1.Equals("Admin")).Id)).EmailId;
             var fromAddress = new MailAddress("anjalikhadake888@gmail.com", "My Name");
-            var toAddress = new MailAddress((email1).ToString());
+            var toAddress1 = new MailAddress((email1).ToString());
+            var toAddress2 = new MailAddress((AdminEmail).ToString());
             const string fromPassword = "password";
-            const string subject = "Service Request";
+            string subject = "Service Request";
             string body = "Request Created!" +
                             "\nRequest Id: " + request.Id +
                                 "\nRequest Created by: " + _context.Employees.FirstOrDefault(e => e.Id == request.CreatedEmpId).FirstName +
@@ -45,7 +47,7 @@ namespace UserRegistration2.Services.Implementations
                                   "\nTitle :" + request.Title +
                                   "\nSummary :" + request.Summary;
 
-           
+
 
             var smtp = new SmtpClient
             {
@@ -59,16 +61,21 @@ namespace UserRegistration2.Services.Implementations
 
             };
 
-            using (var message = new MailMessage(fromAddress, toAddress)
+            using (var message1 = new MailMessage(fromAddress, toAddress1)
+            {
+                Subject = subject,
+                Body = body
+            })
+            using (var message2 = new MailMessage(fromAddress, toAddress2)
             {
                 Subject = subject,
                 Body = body
             })
             {
 
-                smtp.Send(message);
+                smtp.Send(message1);
+                smtp.Send(message2);
             }
-
         }
 
         public void DeleteRequest(Request request)
