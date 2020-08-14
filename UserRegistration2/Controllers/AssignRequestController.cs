@@ -21,7 +21,7 @@ namespace UserRegistration2.Controllers
         {
             _service = service;
         }
-        // api/assignrequest/getallrequests/Finance
+        // api/assignrequest/getallrequests/1
         // here id is department in id
 
         [HttpGet("GetAllRequests/{id}")]
