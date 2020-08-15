@@ -54,7 +54,8 @@ namespace UserRegistration2.RequestFormatter
             this.Title = request.Title;
             this.CreatedOn = request.CreatedOn;
             this.LastModifiedOn = request.LastModifiedOn;
-            this.CreatedEmpId = request.CreatedEmpId;
+          //  this.CreatedEmpId = request.CreatedEmpId;
+             this.CreatedEmpId = context.Employees.FirstOrDefault(n => n.Id == request.CreatedEmpId).Id;
             this.AssignedEmpId = request.AssignedEmpId;
             this.LastModifiedBy = request.LastModifiedBy;
 
